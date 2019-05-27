@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { EventsService } from "../events.service";
 
 @Component({
-  selector: 'app-events',
-  templateUrl: './events.component.html',
-  styleUrls: ['./events.component.css']
+  selector: "app-events",
+  templateUrl: "./events.component.html",
+  styleUrls: ["./events.component.css"],
+  providers: [EventsService]
 })
 export class EventsComponent implements OnInit {
+  events: any = [];
 
-  constructor() { }
+  constructor(private eventsService: EventsService) {}
 
   ngOnInit() {
+    console.log("Fora componente");
+    this.eventsService.getAllEvents().subscribe(events => {
+      this.events = events;
+      console.log("Componente");
+    });
   }
-
 }
